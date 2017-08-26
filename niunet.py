@@ -3,7 +3,7 @@
 import sys
 import time
 from keras.datasets import cifar10
-from keras.layers import Convolution2D, MaxPooling2D, AveragePooling2D
+from keras.layers import Convolution2D, MaxPooling2D, AveragePooling2D, SeparableConv2D
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.models import Sequential
 from keras.optimizers import SGD
@@ -38,7 +38,8 @@ model.add(Activation('relu'))  # 激活函数：relu, tanh, sigmoid
 
 model.add(Convolution2D(32, 3, 3))  # C2 卷积层
 model.add(Activation('relu'))
-model.add(MaxPooling2D(pool_size=(2, 2)))  # S3 池化
+model.add(SeparableConv2D(32, 3, 3))  # 深度方向上的可分离卷积(对每个输入通道分别卷积) SeparableConv2D
+# model.add(MaxPooling2D(pool_size=(2, 2)))  # S3 池化
 model.add(Dropout(0.25))  #
 
 model.add(Convolution2D(64, 3, 3, border_mode='valid')) # C4
